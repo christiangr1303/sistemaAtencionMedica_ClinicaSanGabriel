@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Registrar Cita</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+	<div class="max-w-xl mx-auto mt-10 bg-white p-6 rounded-xl shadow">
+
+		<h2 class="text-2xl font-bold mb-4">Registrar Cita</h2>
+
+		<!-- Mensajes -->
+		<div th:if="${success}" class="bg-green-100 text-green-700 p-2 mb-3 rounded">
+			<span th:text="${success}"></span>
+		</div>
+
+		<div th:if="${error}" class="bg-red-100 text-red-700 p-2 mb-3 rounded">
+			<span th:text="${error}"></span>
+		</div>
+
+		<form th:action="@{/citas/guardar}" th:object="${cita}" method="post">
+
+			<!-- DNI -->
+			<div class="mb-3">
+				<label class="block font-semibold">DNI</label>
+				<input type="text" th:field="*{dni}" class="w-full border rounded p-2" />
+			</div>
+
+			<!-- Especialidad -->
+			<div class="mb-3">
+				<label class="block font-semibold">Especialidad ID</label>
+				<input type="number" th:field="*{especialidadId}" class="w-full border rounded p-2" />
+			</div>
+
+			<!-- Médico -->
+			<div class="mb-3">
+				<label class="block font-semibold">Médico ID</label>
+				<input type="number" th:field="*{medicoId}" class="w-full border rounded p-2" />
+			</div>
+
+			<!-- Hora Inicio -->
+			<div class="mb-3">
+				<label class="block font-semibold">Hora Inicio</label>
+				<input type="datetime-local" th:field="*{horaInicio}" class="w-full border rounded p-2" />
+			</div>
+
+			<!-- Hora Final -->
+			<div class="mb-3">
+				<label class="block font-semibold">Hora Final</label>
+				<input type="datetime-local" th:field="*{horaFinal}" class="w-full border rounded p-2" />
+			</div>
+
+			<button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+				Registrar
+			</button>
+
+		</form>
+
+	</div>
+
+</body>
+
+</html>

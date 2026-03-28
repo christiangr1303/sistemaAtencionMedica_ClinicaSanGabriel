@@ -4,8 +4,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,7 +22,7 @@ public class Medico {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(unique = true)
+	@Column(unique = true, nullable = false)
 	private String nroColegiatura;
 	
 	private String nombre;
@@ -28,13 +30,18 @@ public class Medico {
 	private String apeMat;
 	private String telefono;
 	private String correo;
-	private Boolean estado;
+	private Boolean estado = true;
 	
 	@ManyToOne
 	@JoinColumn(name = "especialidad_id", nullable = false)
 	private Especialidad especialidad;
 	
-	@OneToMany(mappedBy="medico")
+	@OneToMany(
+			mappedBy = "medico",
+			cascade = CascadeType.ALL, 
+			orphanRemoval = true,
+			fetch = FetchType.EAGER
+	)
 	private List<HorarioAtencion> horarios = new ArrayList<>();
 	
 	private LocalDateTime fechaCreacion = LocalDateTime.now();
